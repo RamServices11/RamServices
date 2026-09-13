@@ -5,9 +5,7 @@ import WastewaterTreatment from '../components/sections/solutions/WastewaterTrea
 import AdvancedTreatment from '../components/sections/solutions/AdvancedTreatment';
 import IndustrialEngineering from '../components/sections/solutions/IndustrialEngineering';
 import TurnkeyExecution from '../components/sections/solutions/TurnkeyExecution';
-import TechnicalSupport from '../components/sections/solutions/TechnicalSupport';
 import OperationsAMC from '../components/sections/solutions/OperationsAMC';
-import ProvenExperience from '../components/sections/solutions/ProvenExperience';
 import Industries from '../components/sections/solutions/Industries';
 import SolutionsCTA from '../components/sections/solutions/SolutionsCTA';
 
@@ -21,9 +19,7 @@ const Solutions = () => {
       <AdvancedTreatment />
       <IndustrialEngineering />
       <TurnkeyExecution />
-      <TechnicalSupport />
       <OperationsAMC />
-      <ProvenExperience />
       <Industries />
       <SolutionsCTA />
     </>

@@ -35,7 +35,7 @@ const FeaturedIndustryVisual = () => {
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-square md:aspect-[4/3] lg:aspect-square">
               <div className="absolute inset-0 bg-[#00B4D8]/20 z-10 mix-blend-multiply"></div>
-              {/* Using a placeholder approach, relying on existing assets */}
+              {/* Equipment image asset */}
               <img 
                 src="/assets/equipment/industrial-tanks.jpeg" 
                 alt="Industrial Engineering Applications" 

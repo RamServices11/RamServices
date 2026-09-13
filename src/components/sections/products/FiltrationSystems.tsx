@@ -26,7 +26,7 @@ const FiltrationSystems = () => {
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-square md:aspect-[4/3] lg:aspect-square">
               <div className="absolute inset-0 bg-[#0B192C]/20 z-10 mix-blend-multiply"></div>
-              {/* Using a placeholder approach, but relying on existing assets */}
+              {/* Filtration equipment image asset */}
               <img 
                 src="/assets/equipment/filter-vessels.jpeg" 
                 alt="Industrial Filtration Systems" 

@@ -25,11 +25,6 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when route changes
-  useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [location.pathname]);
-
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -106,7 +101,7 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden z-50 p-2"
+            className="md:hidden z-50 p-2 focus:outline-none"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
             aria-expanded={mobileMenuOpen}
@@ -114,7 +109,7 @@ const Header = () => {
             {mobileMenuOpen ? (
               <X className="text-gray-900" size={24} />
             ) : (
-              <Menu className={isScrolled ? 'text-gray-900' : 'text-[#0B192C]'} size={24} />
+              <Menu className={isScrolled ? 'text-gray-900' : 'text-white'} size={24} />
             )}
           </button>
         </div>
@@ -147,6 +142,7 @@ const Header = () => {
                 >
                   <Link
                     to={link.path}
+                    onClick={() => setMobileMenuOpen(false)}
                     className="text-lg font-medium text-gray-900 hover:text-[#00B4D8]"
                   >
                     {link.name}
@@ -156,6 +152,7 @@ const Header = () => {
             </motion.ul>
             <Link
               to="/contact"
+              onClick={() => setMobileMenuOpen(false)}
               className="flex items-center justify-center gap-2 w-full bg-[#1A365D] text-white px-5 py-3.5 rounded-sm font-medium mt-4"
             >
               Request a Quote

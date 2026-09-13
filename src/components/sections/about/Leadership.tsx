@@ -1,10 +1,8 @@
 import { motion } from 'framer-motion';
 import { leadershipData } from '../../../data/leadership';
+import { GraduationCap, Award, UserCheck } from 'lucide-react';
 
 const Leadership = () => {
-  const founders = leadershipData.filter(m => m.role === 'Founder' || m.role === 'CEO');
-  const team = leadershipData.filter(m => m.role !== 'Founder' && m.role !== 'CEO');
-
   const getInitials = (name: string) => {
     const parts = name.replace(/^(Dr\.|Mr\.|Mrs\.)\s*/i, '').split(' ');
     if (parts.length >= 2) {
@@ -19,82 +17,70 @@ const Leadership = () => {
         
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-[#00B4D8] font-semibold tracking-wider uppercase text-sm mb-3 block">
-            Our People
+            Our Key Personnel
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-[#0B192C] mb-6">
-            Leadership Team
+            Leadership & Technical Management
           </h2>
+          <div className="w-16 h-1 bg-[#C1121F] rounded-full mx-auto mb-6"></div>
           <p className="text-gray-600 text-lg">
-            Backed by decades of engineering and industry experience.
+            Backed by academic research background and over decades of combined field engineering experience.
           </p>
         </div>
 
-        {/* Founders / Top Leadership */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 max-w-5xl mx-auto">
-          {founders.map((member, index) => (
+        {/* Leadership Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {leadershipData.map((member, index) => (
             <motion.div 
               key={member.id}
-              className="bg-[#F7FAFC] rounded-2xl overflow-hidden border border-gray-100 group hover:border-[#00B4D8] transition-colors duration-300 shadow-sm hover:shadow-md"
+              className="bg-[#F7FAFC] rounded-xl overflow-hidden border border-gray-200 group hover:border-[#00B4D8] transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
             >
-              <div className="h-64 bg-[#0B192C] overflow-hidden relative">
-                {member.image ? (
-                  <img src={member.image} alt={member.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1A365D] to-[#0B192C] relative overflow-hidden">
-                    <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
-                    <span className="text-6xl font-light text-white/40 tracking-widest relative z-10">{getInitials(member.name)}</span>
-                  </div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B192C] via-transparent to-transparent opacity-60"></div>
-              </div>
               <div className="p-8">
-                <span className="text-[#00B4D8] font-bold tracking-widest text-xs uppercase mb-2 block">{member.role}</span>
-                <h3 className="text-2xl font-bold text-[#1A365D] mb-6">{member.name}</h3>
-                <div className="space-y-4">
+                {/* Header Header Strip */}
+                <div className="flex items-center gap-4 mb-6">
+                  {member.image ? (
+                    <img src={member.image} alt={member.name} className="w-16 h-16 rounded-full object-cover border-2 border-[#00B4D8]" />
+                  ) : (
+                    <div className="w-16 h-16 shrink-0 rounded-full bg-[#0B192C] border-2 border-[#00B4D8] flex items-center justify-center shadow-md relative overflow-hidden group-hover:scale-105 transition-transform">
+                      <span className="text-xl font-bold text-[#00B4D8] font-mono tracking-wider">
+                        {getInitials(member.name)}
+                      </span>
+                    </div>
+                  )}
                   <div>
-                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Background</h4>
-                    <p className="text-sm text-gray-700 font-medium">{member.education}</p>
+                    <span className="inline-block px-2.5 py-0.5 bg-[#00B4D8]/10 text-[#00B4D8] font-bold tracking-wider text-xs uppercase rounded border border-[#00B4D8]/20 mb-1">
+                      {member.role}
+                    </span>
+                    <h3 className="text-lg font-bold text-[#0B192C] leading-snug">{member.name}</h3>
                   </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Experience</h4>
-                    <p className="text-sm text-gray-700 font-medium">{member.experience}</p>
+                </div>
+
+                {/* Details */}
+                <div className="space-y-4 pt-4 border-t border-gray-200/80">
+                  <div className="flex items-start gap-3 text-sm">
+                    <GraduationCap className="text-[#00B4D8] shrink-0 mt-0.5" size={18} />
+                    <div>
+                      <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider block">Qualification</span>
+                      <p className="text-gray-700 font-medium">{member.education}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Focus</h4>
-                    <p className="text-sm text-gray-700 font-medium">{member.responsibilities}</p>
+                  <div className="flex items-start gap-3 text-sm">
+                    <Award className="text-[#00B4D8] shrink-0 mt-0.5" size={18} />
+                    <div>
+                      <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider block">Experience</span>
+                      <p className="text-gray-700 font-medium">{member.experience}</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </div>
 
-        {/* Other Leadership */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {team.map((member, index) => (
-            <motion.div 
-              key={member.id}
-              className="bg-white rounded-xl overflow-hidden border border-gray-100 group hover:border-[#00B4D8] transition-colors duration-300 shadow-sm flex items-center p-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <div className="w-16 h-16 shrink-0 rounded-full bg-gradient-to-br from-[#1A365D] to-[#0B192C] flex items-center justify-center mr-4 shadow-inner relative overflow-hidden">
-                {member.image ? (
-                   <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
-                ) : (
-                   <span className="text-xl font-light text-white/50">{getInitials(member.name)}</span>
-                )}
-              </div>
-              <div>
-                <span className="text-[#00B4D8] font-bold tracking-widest text-[10px] uppercase mb-1 block">{member.role}</span>
-                <h3 className="text-base font-bold text-[#1A365D] mb-1">{member.name}</h3>
-                <p className="text-[11px] text-gray-500 line-clamp-1">{member.education}</p>
+              <div className="bg-gray-100/70 px-8 py-3 border-t border-gray-200 flex items-center gap-2 text-xs font-semibold text-gray-500">
+                <UserCheck size={14} className="text-[#00B4D8]" />
+                <span>Verified Personnel</span>
               </div>
             </motion.div>
           ))}

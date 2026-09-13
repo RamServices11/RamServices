@@ -11,21 +11,33 @@ interface Droplet {
   offset: number;
 }
 
+function pseudoRandom(seed: number): number {
+  const x = Math.sin(seed) * 10000;
+  return x - Math.floor(x);
+}
+
+function generateDroplets(count: number): Droplet[] {
+  return Array.from({ length: count }, (_, i) => {
+    const r1 = pseudoRandom(i * 5 + 1);
+    const r2 = pseudoRandom(i * 5 + 2);
+    const r3 = pseudoRandom(i * 5 + 3);
+    const r4 = pseudoRandom(i * 5 + 4);
+    const r5 = pseudoRandom(i * 5 + 5);
+    return {
+      position: [
+        (r1 - 0.5) * 7,
+        (r2 - 0.5) * 4.5,
+        (r3 - 0.5) * 3,
+      ] as [number, number, number],
+      scale: 0.14 + r4 * 0.24,
+      speed: 0.35 + r5 * 0.5,
+      offset: r2 * Math.PI * 2,
+    };
+  });
+}
+
 function useDroplets(count: number): Droplet[] {
-  return useMemo(
-    () =>
-      Array.from({ length: count }, () => ({
-        position: [
-          (Math.random() - 0.5) * 7,
-          (Math.random() - 0.5) * 4.5,
-          (Math.random() - 0.5) * 3,
-        ] as [number, number, number],
-        scale: 0.14 + Math.random() * 0.24,
-        speed: 0.35 + Math.random() * 0.5,
-        offset: Math.random() * Math.PI * 2,
-      })),
-    [count]
-  );
+  return useMemo(() => generateDroplets(count), [count]);
 }
 
 /** A single glassy, transparent droplet — real refraction, no opaque fill. */

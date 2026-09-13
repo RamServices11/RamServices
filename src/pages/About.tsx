@@ -1,12 +1,10 @@
 import AboutHero from '../components/sections/about/AboutHero';
 import CompanyOverview from '../components/sections/about/CompanyOverview';
-import Capabilities from '../components/sections/about/Capabilities';
 import EngineeringProcess from '../components/sections/about/EngineeringProcess';
 import WaterChallenge from '../components/sections/about/WaterChallenge';
 import InHouseCapabilities from '../components/sections/about/InHouseCapabilities';
 import VisionMission from '../components/sections/about/VisionMission';
-import Values from '../components/sections/about/Values';
-import FourRs from '../components/sections/FourRs'; // Reusing from Homepage
+import FourRs from '../components/sections/FourRs';
 import Leadership from '../components/sections/about/Leadership';
 import Locations from '../components/sections/about/Locations';
 import StrategicRoadmap from '../components/sections/about/StrategicRoadmap';
@@ -17,12 +15,10 @@ const About = () => {
     <>
       <AboutHero />
       <CompanyOverview />
-      <Capabilities />
+      <InHouseCapabilities />
       <EngineeringProcess />
       <WaterChallenge />
-      <InHouseCapabilities />
       <VisionMission />
-      <Values />
       <FourRs />
       <Leadership />
       <Locations />

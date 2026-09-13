@@ -54,6 +54,9 @@ const ProjectRow = ({ project, isEven }: { project: Project; isEven: boolean }) 
       {/* Image Section */}
       <div className="w-full lg:w-3/5 overflow-hidden rounded-xl shadow-lg relative aspect-[4/3] lg:aspect-[16/10]">
         <div className="absolute inset-0 bg-[#0B192C]/10 z-10 group-hover:bg-transparent transition-colors duration-500 pointer-events-none"></div>
+        <span className="absolute top-4 left-4 z-20 px-3 py-1 bg-[#0B192C]/85 backdrop-blur-md text-[#00B4D8] text-[11px] font-mono tracking-wider uppercase rounded border border-[#00B4D8]/30">
+          Representative Engineering Execution
+        </span>
         <motion.img
           src={project.image}
           alt={project.client}
