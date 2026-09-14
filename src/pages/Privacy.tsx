@@ -61,7 +61,11 @@ const Privacy = () => {
               </div>
               <div className="flex items-center gap-3">
                 <Phone size={16} className="text-[#00B4D8]" />
-                <a href="tel:+916309767400" className="font-semibold text-[#0B192C] hover:text-[#00B4D8]">+91 6309767400</a>
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                  <a href="tel:+916392477942" className="font-semibold text-[#0B192C] hover:text-[#00B4D8]">+91 6392477942</a>
+                  <span className="text-gray-400">/</span>
+                  <a href="tel:+916309767400" className="font-semibold text-[#0B192C] hover:text-[#00B4D8]">+91 6309767400</a>
+                </div>
               </div>
               <div className="flex items-start gap-3">
                 <MapPin size={16} className="text-[#00B4D8] shrink-0 mt-0.5" />

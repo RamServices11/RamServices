@@ -5,6 +5,7 @@ import Footer from '../components/ui/Footer';
 import Preloader from '../components/ui/Preloader';
 import RouteProgressBar from '../components/ui/RouteProgressBar';
 import PageTransition from '../components/ui/PageTransition';
+import WhatsAppButton from '../components/ui/WhatsAppButton';
 
 const MainLayout = () => {
   const { pathname, hash } = useLocation();
@@ -50,6 +51,7 @@ const MainLayout = () => {
         </Suspense>
       </main>
       <Footer />
+      <WhatsAppButton />
     </div>
   );
 };

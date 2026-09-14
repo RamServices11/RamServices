@@ -51,12 +51,15 @@ const ContactCTA = () => {
 
             <div className="mt-20 pt-10 border-t border-[#1A365D] max-w-2xl mx-auto flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16">
               <span className="text-gray-400 font-light">Prefer to speak directly?</span>
-              <div className="flex items-center gap-8">
+              <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8 text-sm">
                 <a href="mailto:contact@ramservices.in" className="text-white hover:text-[#00B4D8] font-medium transition-colors">
-                  Email our team
+                  contact@ramservices.in
+                </a>
+                <a href="tel:+916392477942" className="text-white hover:text-[#00B4D8] font-medium transition-colors">
+                  +91 6392477942
                 </a>
                 <a href="tel:+916309767400" className="text-white hover:text-[#00B4D8] font-medium transition-colors">
-                  Call our team
+                  +91 6309767400
                 </a>
               </div>
             </div>

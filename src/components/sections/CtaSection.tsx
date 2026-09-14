@@ -33,7 +33,7 @@ const CtaSection = () => {
             Contact RAM Services Enterprises for world-class design, execution, and maintenance of your water and industrial infrastructure projects.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
             <Link
               to="/contact"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#00B4D8] text-[#0B192C] font-bold rounded-sm hover:bg-white hover:scale-[1.03] transition-all duration-300 group shadow-[0_0_20px_rgba(0,180,216,0.3)]"
@@ -42,13 +42,22 @@ const CtaSection = () => {
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </Link>
 
-            <a
-              href="tel:+916309767400"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 border border-gray-500 text-white font-medium rounded-sm hover:border-[#00B4D8] hover:text-[#00B4D8] bg-black/20 hover:bg-black/40 transition-all duration-300"
-            >
-              <PhoneCall size={20} />
-              +91 6309767400
-            </a>
+            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+              <a
+                href="tel:+916392477942"
+                className="inline-flex items-center justify-center gap-2 px-5 py-4 border border-gray-500 text-white font-medium rounded-sm hover:border-[#00B4D8] hover:text-[#00B4D8] bg-black/20 hover:bg-black/40 transition-all duration-300 text-sm md:text-base"
+              >
+                <PhoneCall size={18} />
+                +91 6392477942
+              </a>
+              <a
+                href="tel:+916309767400"
+                className="inline-flex items-center justify-center gap-2 px-5 py-4 border border-gray-500 text-white font-medium rounded-sm hover:border-[#00B4D8] hover:text-[#00B4D8] bg-black/20 hover:bg-black/40 transition-all duration-300 text-sm md:text-base"
+              >
+                <PhoneCall size={18} />
+                +91 6309767400
+              </a>
+            </div>
           </div>
 
         </Reveal>
