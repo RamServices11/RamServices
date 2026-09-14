@@ -7,6 +7,7 @@ import VisionMission from '../components/sections/about/VisionMission';
 import FourRs from '../components/sections/FourRs';
 import Leadership from '../components/sections/about/Leadership';
 import Locations from '../components/sections/about/Locations';
+import VendorExperience from '../components/sections/about/VendorExperience';
 import StrategicRoadmap from '../components/sections/about/StrategicRoadmap';
 import AboutCTA from '../components/sections/about/AboutCTA';
 
@@ -22,6 +23,7 @@ const About = () => {
       <FourRs />
       <Leadership />
       <Locations />
+      <VendorExperience />
       <StrategicRoadmap />
       <AboutCTA />
     </>

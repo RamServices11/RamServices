@@ -67,8 +67,10 @@ const FeaturedProjects = () => {
                   alt={`${project.client} Facility`} 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B192C] via-transparent to-transparent opacity-80"></div>
-                <div className="absolute top-4 left-4">
+                <div className="absolute top-4 left-4 z-20 flex flex-col items-start gap-2">
+                  <span className="px-3 py-1 bg-[#0B192C]/85 backdrop-blur-md text-[#00B4D8] text-[11px] font-mono tracking-wider uppercase rounded border border-[#00B4D8]/30">
+                    Representative Engineering Execution
+                  </span>
                   <span className="px-3 py-1 bg-[#00B4D8] text-[#0B192C] text-xs font-bold uppercase rounded-sm">
                     {project.type}
                   </span>

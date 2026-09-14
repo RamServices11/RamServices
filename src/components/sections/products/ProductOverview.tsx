@@ -7,14 +7,14 @@ const ProductOverview = () => {
       num: '01',
       title: 'Water Treatment',
       desc: 'Systems for industrial and process-water requirements.',
-      link: '#water-treatment',
+      link: '#product-catalogue',
       image: '/assets/equipment/water-treatment-system.jpeg'
     },
     {
       num: '02',
       title: 'Wastewater Treatment',
       desc: 'Systems for effluent, sewage, and leachate treatment.',
-      link: '#wastewater',
+      link: '#product-catalogue',
       image: '/assets/equipment/aeration-system.jpeg'
     }
   ];
@@ -24,21 +24,21 @@ const ProductOverview = () => {
       num: '03',
       title: 'Advanced Treatment',
       desc: 'Technologies for advanced recovery and zero liquid discharge.',
-      link: '#advanced-treatment',
+      link: '#product-catalogue',
       image: '/assets/equipment/membrane-skid.jpeg'
     },
     {
       num: '04',
       title: 'Filtration & Separation',
       desc: 'Filtration and water-conditioning systems.',
-      link: '#filtration',
+      link: '#product-catalogue',
       image: '/assets/equipment/industrial-filters.jpeg'
     },
     {
       num: '05',
       title: 'Packaged Systems',
       desc: 'Compact treatment approach for applicable requirements.',
-      link: '#packaged',
+      link: '#product-catalogue',
       image: '/assets/equipment/packaged-treatment-plant.jpeg'
     },
     {

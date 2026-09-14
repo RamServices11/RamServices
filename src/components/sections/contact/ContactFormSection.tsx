@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Clock, AlertCircle, CheckCircle2, Info, ArrowRight } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, AlertCircle, CheckCircle2, Info, ArrowRight, MessageCircle } from 'lucide-react';
 
 const ContactFormSection = () => {
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error' | 'integration_pending'>('idle');
@@ -85,11 +85,28 @@ const ContactFormSection = () => {
                   <div className="w-12 h-12 bg-[#F7FAFC] border border-gray-100 rounded-sm flex items-center justify-center shrink-0 group-hover:border-[#00B4D8]/50 group-hover:bg-white transition-colors duration-300">
                     <Phone className="text-[#00B4D8]" size={20} />
                   </div>
-                  <div>
+                  <div className="space-y-2">
                     <span className="block text-xs font-semibold tracking-widest text-gray-400 uppercase mb-1">Phone</span>
-                    <a href="tel:+916309767400" className="text-[#0B192C] font-medium text-lg block hover:text-[#00B4D8] transition-colors">
-                      +91 6309767400
-                    </a>
+                    <div>
+                      <a href="tel:+916392477942" className="text-[#0B192C] font-medium text-lg block hover:text-[#00B4D8] transition-colors">
+                        +91 6392477942
+                      </a>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <a href="tel:+916309767400" className="text-[#0B192C] font-medium text-lg hover:text-[#00B4D8] transition-colors">
+                        +91 6309767400
+                      </a>
+                      <a
+                        href="https://wa.me/916309767400"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded bg-[#25D366]/10 text-[#128C7E] hover:bg-[#25D366]/20 transition-colors border border-[#25D366]/30"
+                        title="Chat on WhatsApp"
+                      >
+                        <MessageCircle size={13} />
+                        WhatsApp
+                      </a>
+                    </div>
                   </div>
                 </div>
 
@@ -133,7 +150,29 @@ const ContactFormSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <h3 className="text-2xl font-bold text-[#0B192C] mb-8">Send an Enquiry</h3>
+              <h3 className="text-2xl font-bold text-[#0B192C] mb-6">Send an Enquiry</h3>
+
+              {/* Faster Response / Pending Email Advisory */}
+              <div className="mb-6 p-4 rounded-lg bg-[#F0F8FF] border border-[#00B4D8]/30 flex items-start gap-3 text-sm">
+                <Info className="text-[#00B4D8] shrink-0 mt-0.5" size={18} />
+                <div className="space-y-1">
+                  <p className="font-semibold text-[#0B192C]">
+                    Prefer a faster response?{' '}
+                    <a
+                      href="https://wa.me/916309767400"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#00B4D8] hover:underline inline-flex items-center gap-1 font-bold"
+                    >
+                      Contact us directly on WhatsApp at +91 6309767400
+                      <ArrowRight size={13} />
+                    </a>
+                  </p>
+                  <p className="text-xs text-gray-500 leading-relaxed">
+                    Email enquiry integration is currently being configured. For immediate assistance, please contact us on WhatsApp.
+                  </p>
+                </div>
+              </div>
               
               {formState === 'success' ? (
                 <div className="bg-green-50 border border-green-200 p-8 rounded-sm text-center flex flex-col items-center">
@@ -150,17 +189,28 @@ const ContactFormSection = () => {
                 </div>
               ) : formState === 'integration_pending' ? (
                 <div className="bg-blue-50 border border-blue-200 p-8 rounded-sm text-center flex flex-col items-center">
-                  <Info className="text-blue-500 mb-4" size={48} />
-                  <h4 className="text-xl font-bold text-blue-800 mb-2">Frontend Form Validated</h4>
-                  <p className="text-blue-700 mb-4 text-sm leading-relaxed max-w-md mx-auto">
-                    UI and submission integration are implemented, but email delivery requires <code className="bg-white px-1.5 py-0.5 rounded border border-blue-100 text-xs text-blue-900 font-mono">VITE_CONTACT_RECEIVER_EMAIL</code> and <code className="bg-white px-1.5 py-0.5 rounded border border-blue-100 text-xs text-blue-900 font-mono">VITE_API_ENDPOINT</code> environment variables to be configured.
+                  <Info className="text-[#00B4D8] mb-4" size={48} />
+                  <h4 className="text-xl font-bold text-[#0B192C] mb-2">Form Received — Email Delivery Pending</h4>
+                  <p className="text-gray-600 mb-6 text-sm leading-relaxed max-w-md mx-auto">
+                    Email enquiry integration is currently being configured. For immediate assistance and real-time response, please connect directly with our engineering team on WhatsApp.
                   </p>
-                  <button 
-                    onClick={() => setFormState('idle')}
-                    className="text-sm font-semibold text-blue-700 hover:text-blue-900 border-b border-blue-700 pb-1 mt-4"
-                  >
-                    Return to Form
-                  </button>
+                  <div className="flex flex-col sm:flex-row items-center gap-3">
+                    <a
+                      href="https://wa.me/916309767400?text=Hello%20RAM%20Services%20Enterprises,%20I%20would%20like%20to%20enquire%20about%20your%20services."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold text-sm rounded shadow transition-all"
+                    >
+                      <MessageCircle size={18} />
+                      Chat on WhatsApp (+91 6309767400)
+                    </a>
+                    <button 
+                      onClick={() => setFormState('idle')}
+                      className="px-4 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+                    >
+                      Return to Form
+                    </button>
+                  </div>
                 </div>
               ) : formState === 'error' ? (
                 <div className="bg-red-50 border border-red-200 p-8 rounded-sm text-center flex flex-col items-center">
