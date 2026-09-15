@@ -93,11 +93,16 @@ const Footer = () => {
                   Hyderabad (Telangana) & Bangalore (Karnataka)
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <Phone className="text-[#00B4D8] shrink-0" size={18} />
-                <a href="tel:+916309767400" className="text-sm hover:text-white transition-colors">
-                  +91 6309767400
-                </a>
+              <div className="flex items-start gap-3">
+                <Phone className="text-[#00B4D8] shrink-0 mt-0.5" size={18} />
+                <div className="flex flex-col gap-1 text-sm">
+                  <a href="tel:+916392477942" className="hover:text-white transition-colors">
+                    +91 6392477942
+                  </a>
+                  <a href="tel:+916309767400" className="hover:text-white transition-colors">
+                    +91 6309767400
+                  </a>
+                </div>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="text-[#00B4D8] shrink-0" size={18} />

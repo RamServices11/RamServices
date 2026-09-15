@@ -20,7 +20,7 @@ const InHouseCapabilities = () => {
     },
     {
       title: 'Strategic Locations',
-      desc: 'Fully equipped operational facilities in Prayagraj (UP) and Hyderabad (Telangana).',
+      desc: 'Fully equipped operational facilities in Prayagraj, Bangalore and Hyderabad.',
       icon: <Building className="text-[#00B4D8]" size={28} />
     }
   ];
@@ -53,7 +53,7 @@ const InHouseCapabilities = () => {
             </p>
             <div className="flex gap-4 items-center border-l-4 border-[#C1121F] pl-4">
               <p className="text-sm text-gray-400 font-medium uppercase tracking-widest">
-                Prayagraj &bull; Hyderabad
+                Prayagraj &bull; Bangalore &bull; Hyderabad
               </p>
             </div>
           </motion.div>

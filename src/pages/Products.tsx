@@ -1,27 +1,34 @@
+import { useState } from 'react';
 import ProductsHero from '../components/sections/products/ProductsHero';
 import ProductOverview from '../components/sections/products/ProductOverview';
-import WaterTreatmentProducts from '../components/sections/products/WaterTreatmentProducts';
-import WastewaterProducts from '../components/sections/products/WastewaterProducts';
-import AdvancedTreatmentProducts from '../components/sections/products/AdvancedTreatmentProducts';
-import FiltrationSystems from '../components/sections/products/FiltrationSystems';
-import PackagedSystems from '../components/sections/products/PackagedSystems';
+import FeaturedProductsShowcase from '../components/sections/products/FeaturedProductsShowcase';
+import ProductCatalogue from '../components/sections/products/ProductCatalogue';
 import EngineeringProducts from '../components/sections/products/EngineeringProducts';
 import ProductSelection from '../components/sections/products/ProductSelection';
 import ProductsCTA from '../components/sections/products/ProductsCTA';
+import ProductMediaModal from '../components/sections/products/ProductMediaModal';
+import type { ProductItem } from '../data/products';
 
 const Products = () => {
+  const [selectedProductForMedia, setSelectedProductForMedia] = useState<ProductItem | null>(null);
+
   return (
     <>
       <ProductsHero />
       <ProductOverview />
-      <WaterTreatmentProducts />
-      <WastewaterProducts />
-      <AdvancedTreatmentProducts />
-      <FiltrationSystems />
-      <PackagedSystems />
+      <FeaturedProductsShowcase onSelectProductForMedia={setSelectedProductForMedia} />
+      <ProductCatalogue onSelectProductForMedia={setSelectedProductForMedia} />
       <EngineeringProducts />
       <ProductSelection />
       <ProductsCTA />
+
+      {selectedProductForMedia && (
+        <ProductMediaModal
+          key={selectedProductForMedia.id}
+          product={selectedProductForMedia}
+          onClose={() => setSelectedProductForMedia(null)}
+        />
+      )}
     </>
   );
 };
