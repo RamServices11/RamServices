@@ -2,44 +2,123 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Clock, AlertCircle, CheckCircle2, Info, ArrowRight, MessageCircle } from 'lucide-react';
 
+type FormState = 'idle' | 'submitting' | 'success' | 'error' | 'integration_pending';
+
+interface FormFields {
+  fullName: string;
+  company: string;
+  email: string;
+  phone: string;
+  industry: string;
+  requirementType: string;
+  location: string;
+  message: string;
+  privacy: boolean;
+}
+
+const EMPTY_FORM: FormFields = {
+  fullName: '',
+  company: '',
+  email: '',
+  phone: '',
+  industry: '',
+  requirementType: '',
+  location: '',
+  message: '',
+  privacy: false,
+};
+
+const REQUIREMENT_LABELS: Record<string, string> = {
+  'new-water-treatment': 'New Water Treatment System',
+  'wastewater-treatment': 'Wastewater Treatment',
+  'plant-upgrade': 'Plant Upgrade / Expansion',
+  'engineering-om': 'Engineering & O&M',
+  'industrial-treatment': 'Industrial Treatment Requirement',
+  'product-enquiry': 'Product Enquiry',
+  'spare-parts': 'Spare Parts / Equipment',
+  'service-maintenance': 'Service / Maintenance',
+  other: 'Other',
+};
+
+/**
+ * Formspree endpoint. Set VITE_FORMSPREE_ENDPOINT in .env to the full URL
+ * (https://formspree.io/f/xxxxxxxx) that Formspree gives you for your form.
+ */
+const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT as string | undefined;
+
 const ContactFormSection = () => {
-  const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error' | 'integration_pending'>('idle');
-  
+  const [formState, setFormState] = useState<FormState>('idle');
+  const [form, setForm] = useState<FormFields>(EMPTY_FORM);
+  const [errorMessage, setErrorMessage] = useState<string>('');
+
+  const updateField = <K extends keyof FormFields>(key: K, value: FormFields[K]) => {
+    setForm((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const resetForm = () => {
+    setForm(EMPTY_FORM);
+    setErrorMessage('');
+    setFormState('idle');
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormState('submitting');
-    
-    const apiEndpoint = import.meta.env.VITE_API_ENDPOINT;
-    const receiverEmail = import.meta.env.VITE_CONTACT_RECEIVER_EMAIL;
 
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
-
-    if (!apiEndpoint || !receiverEmail) {
-      // Backend not configured
+    // No endpoint configured yet — point the visitor at WhatsApp rather than
+    // silently pretending the enquiry was delivered.
+    if (!FORMSPREE_ENDPOINT) {
       setFormState('integration_pending');
       return;
     }
 
+    setFormState('submitting');
+    setErrorMessage('');
+
     try {
-      // Example integration logic (would need a real backend to work)
-      /*
-      const response = await fetch(apiEndpoint, {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        headers: {
+          'Content-Type': 'application/json',
+          // Without this, Formspree redirects to its own thank-you page
+          // instead of returning JSON to us.
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name: form.fullName,
+          email: form.email,
+          company: form.company || 'Not provided',
+          phone: form.phone || 'Not provided',
+          industry: form.industry || 'Not provided',
+          requirement: REQUIREMENT_LABELS[form.requirementType] ?? form.requirementType,
+          projectLocation: form.location || 'Not provided',
+          message: form.message,
+          // Shows up as the email subject in the Formspree notification.
+          _subject: `New enquiry from ${form.fullName}${form.company ? ` (${form.company})` : ''}`,
+          // Lets you hit "reply" directly to the enquirer.
+          _replyto: form.email,
+        }),
       });
-      if (!response.ok) throw new Error('Failed to send');
-      */
-      
-      // If we had a real backend, we'd set success here.
-      // For now, since we know it's not configured, we'll hit the block above.
-      setFormState('success');
+
+      if (response.ok) {
+        setFormState('success');
+        setForm(EMPTY_FORM);
+        return;
+      }
+
+      // Formspree returns structured validation errors we can surface.
+      const data = await response.json().catch(() => null);
+      const detail = data?.errors?.map((err: { message: string }) => err.message).join(', ');
+      setErrorMessage(detail || 'The enquiry could not be delivered. Please try again.');
+      setFormState('error');
     } catch (error) {
-      console.error("Submission failed:", error);
+      console.error('Submission failed:', error);
+      setErrorMessage('A network error occurred. Please check your connection and try again.');
       setFormState('error');
     }
   };
+
+  const inputClasses =
+    'w-full bg-[#F7FAFC] border border-gray-200 px-4 py-3.5 rounded-sm focus:outline-none focus:border-[#00B4D8] focus:bg-white focus:ring-1 focus:ring-[#00B4D8] transition-all placeholder:text-gray-400';
 
   return (
     <section id="contact-info" className="py-24 bg-white scroll-mt-20">
@@ -152,7 +231,7 @@ const ContactFormSection = () => {
             >
               <h3 className="text-2xl font-bold text-[#0B192C] mb-6">Send an Enquiry</h3>
 
-              {/* Faster Response / Pending Email Advisory */}
+              {/* WhatsApp quick-contact advisory */}
               <div className="mb-6 p-4 rounded-lg bg-[#F0F8FF] border border-[#00B4D8]/30 flex items-start gap-3 text-sm">
                 <Info className="text-[#00B4D8] shrink-0 mt-0.5" size={18} />
                 <div className="space-y-1">
@@ -169,7 +248,7 @@ const ContactFormSection = () => {
                     </a>
                   </p>
                   <p className="text-xs text-gray-500 leading-relaxed">
-                    Email enquiry integration is currently being configured. For immediate assistance, please contact us on WhatsApp.
+                    We typically respond to enquiries within one business day.
                   </p>
                 </div>
               </div>
@@ -181,7 +260,7 @@ const ContactFormSection = () => {
                   <p className="text-green-600 mb-6">Thank you for contacting RAM SERVICES ENTERPRISES. Our team has received your enquiry and will review your requirements.</p>
                   <p className="text-green-600 mb-6 font-medium">We'll get back to you as soon as possible.</p>
                   <button 
-                    onClick={() => setFormState('idle')}
+                    onClick={resetForm}
                     className="text-sm font-semibold text-green-700 hover:text-green-900 border-b border-green-700 pb-1"
                   >
                     Send Another Enquiry
@@ -192,7 +271,7 @@ const ContactFormSection = () => {
                   <Info className="text-[#00B4D8] mb-4" size={48} />
                   <h4 className="text-xl font-bold text-[#0B192C] mb-2">Form Received — Email Delivery Pending</h4>
                   <p className="text-gray-600 mb-6 text-sm leading-relaxed max-w-md mx-auto">
-                    Email enquiry integration is currently being configured. For immediate assistance and real-time response, please connect directly with our engineering team on WhatsApp.
+                    Email enquiry delivery is not configured yet (<code className="bg-white px-1.5 py-0.5 rounded border border-blue-100 text-xs text-blue-900 font-mono">VITE_FORMSPREE_ENDPOINT</code> is unset). For immediate assistance and real-time response, please connect directly with our engineering team on WhatsApp.
                   </p>
                   <div className="flex flex-col sm:flex-row items-center gap-3">
                     <a
@@ -216,13 +295,24 @@ const ContactFormSection = () => {
                 <div className="bg-red-50 border border-red-200 p-8 rounded-sm text-center flex flex-col items-center">
                   <AlertCircle className="text-red-500 mb-4" size={48} />
                   <h4 className="text-xl font-bold text-red-800 mb-2">Something went wrong</h4>
-                  <p className="text-red-600 mb-6">An error occurred while sending your enquiry. Please try again or contact our team directly.</p>
-                  <button 
-                    onClick={() => setFormState('idle')}
-                    className="text-sm font-semibold text-red-700 hover:text-red-900 border-b border-red-700 pb-1"
-                  >
-                    Try Again
-                  </button>
+                  <p className="text-red-600 mb-6">{errorMessage || 'An error occurred while sending your enquiry. Please try again or contact our team directly.'}</p>
+                  <div className="flex flex-col sm:flex-row items-center gap-3">
+                    <button 
+                      onClick={() => setFormState('idle')}
+                      className="text-sm font-semibold text-red-700 hover:text-red-900 border-b border-red-700 pb-1"
+                    >
+                      Try Again
+                    </button>
+                    <a
+                      href="https://wa.me/916309767400"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold text-sm rounded shadow transition-all"
+                    >
+                      <MessageCircle size={16} />
+                      Message us on WhatsApp
+                    </a>
+                  </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -232,9 +322,12 @@ const ContactFormSection = () => {
                       <label htmlFor="fullName" className="block text-sm font-medium text-[#1A365D]">Full Name *</label>
                       <input 
                         type="text" 
-                        id="fullName" 
+                        id="fullName"
+                        name="fullName"
                         required
-                        className="w-full bg-[#F7FAFC] border border-gray-200 px-4 py-3.5 rounded-sm focus:outline-none focus:border-[#00B4D8] focus:bg-white focus:ring-1 focus:ring-[#00B4D8] transition-all placeholder:text-gray-400"
+                        value={form.fullName}
+                        onChange={(e) => updateField('fullName', e.target.value)}
+                        className={inputClasses}
                         placeholder="John Doe"
                       />
                     </div>
@@ -242,8 +335,11 @@ const ContactFormSection = () => {
                       <label htmlFor="company" className="block text-sm font-medium text-[#1A365D]">Company Name</label>
                       <input 
                         type="text" 
-                        id="company" 
-                        className="w-full bg-[#F7FAFC] border border-gray-200 px-4 py-3.5 rounded-sm focus:outline-none focus:border-[#00B4D8] focus:bg-white focus:ring-1 focus:ring-[#00B4D8] transition-all placeholder:text-gray-400"
+                        id="company"
+                        name="company"
+                        value={form.company}
+                        onChange={(e) => updateField('company', e.target.value)}
+                        className={inputClasses}
                         placeholder="Company Ltd."
                       />
                     </div>
@@ -254,9 +350,12 @@ const ContactFormSection = () => {
                       <label htmlFor="email" className="block text-sm font-medium text-[#1A365D]">Email Address *</label>
                       <input 
                         type="email" 
-                        id="email" 
+                        id="email"
+                        name="email"
                         required
-                        className="w-full bg-[#F7FAFC] border border-gray-200 px-4 py-3.5 rounded-sm focus:outline-none focus:border-[#00B4D8] focus:bg-white focus:ring-1 focus:ring-[#00B4D8] transition-all placeholder:text-gray-400"
+                        value={form.email}
+                        onChange={(e) => updateField('email', e.target.value)}
+                        className={inputClasses}
                         placeholder="john@example.com"
                       />
                     </div>
@@ -264,8 +363,11 @@ const ContactFormSection = () => {
                       <label htmlFor="phone" className="block text-sm font-medium text-[#1A365D]">Phone Number</label>
                       <input 
                         type="tel" 
-                        id="phone" 
-                        className="w-full bg-[#F7FAFC] border border-gray-200 px-4 py-3.5 rounded-sm focus:outline-none focus:border-[#00B4D8] focus:bg-white focus:ring-1 focus:ring-[#00B4D8] transition-all placeholder:text-gray-400"
+                        id="phone"
+                        name="phone"
+                        value={form.phone}
+                        onChange={(e) => updateField('phone', e.target.value)}
+                        className={inputClasses}
                         placeholder="+91 XXXXX XXXXX"
                       />
                     </div>
@@ -276,8 +378,11 @@ const ContactFormSection = () => {
                       <label htmlFor="industry" className="block text-sm font-medium text-[#1A365D]">Industry / Sector</label>
                       <input 
                         type="text" 
-                        id="industry" 
-                        className="w-full bg-[#F7FAFC] border border-gray-200 px-4 py-3.5 rounded-sm focus:outline-none focus:border-[#00B4D8] focus:bg-white focus:ring-1 focus:ring-[#00B4D8] transition-all placeholder:text-gray-400"
+                        id="industry"
+                        name="industry"
+                        value={form.industry}
+                        onChange={(e) => updateField('industry', e.target.value)}
+                        className={inputClasses}
                         placeholder="e.g. Pharmaceuticals"
                       />
                     </div>
@@ -286,19 +391,16 @@ const ContactFormSection = () => {
                       <div className="relative">
                         <select 
                           id="requirementType"
+                          name="requirementType"
                           required
+                          value={form.requirementType}
+                          onChange={(e) => updateField('requirementType', e.target.value)}
                           className="w-full bg-[#F7FAFC] border border-gray-200 px-4 py-3.5 rounded-sm focus:outline-none focus:border-[#00B4D8] focus:bg-white focus:ring-1 focus:ring-[#00B4D8] transition-all appearance-none text-[#1A365D]"
                         >
                           <option value="">Select Requirement...</option>
-                          <option value="new-water-treatment">New Water Treatment System</option>
-                          <option value="wastewater-treatment">Wastewater Treatment</option>
-                          <option value="plant-upgrade">Plant Upgrade / Expansion</option>
-                          <option value="engineering-om">Engineering & O&M</option>
-                          <option value="industrial-treatment">Industrial Treatment Requirement</option>
-                          <option value="product-enquiry">Product Enquiry</option>
-                          <option value="spare-parts">Spare Parts / Equipment</option>
-                          <option value="service-maintenance">Service / Maintenance</option>
-                          <option value="other">Other</option>
+                          {Object.entries(REQUIREMENT_LABELS).map(([value, label]) => (
+                            <option key={value} value={value}>{label}</option>
+                          ))}
                         </select>
                         <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-500">
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -311,8 +413,11 @@ const ContactFormSection = () => {
                     <label htmlFor="location" className="block text-sm font-medium text-[#1A365D]">Project Location</label>
                     <input 
                       type="text" 
-                      id="location" 
-                      className="w-full bg-[#F7FAFC] border border-gray-200 px-4 py-3.5 rounded-sm focus:outline-none focus:border-[#00B4D8] focus:bg-white focus:ring-1 focus:ring-[#00B4D8] transition-all placeholder:text-gray-400"
+                      id="location"
+                      name="location"
+                      value={form.location}
+                      onChange={(e) => updateField('location', e.target.value)}
+                      className={inputClasses}
                       placeholder="City, State, Country"
                     />
                   </div>
@@ -320,9 +425,12 @@ const ContactFormSection = () => {
                   <div className="space-y-2">
                     <label htmlFor="message" className="block text-sm font-medium text-[#1A365D]">Message *</label>
                     <textarea 
-                      id="message" 
+                      id="message"
+                      name="message"
                       required
                       rows={5}
+                      value={form.message}
+                      onChange={(e) => updateField('message', e.target.value)}
                       className="w-full bg-[#F7FAFC] border border-gray-200 px-4 py-3.5 rounded-sm focus:outline-none focus:border-[#00B4D8] focus:bg-white focus:ring-1 focus:ring-[#00B4D8] transition-all resize-none placeholder:text-gray-400"
                       placeholder="Please provide details about your requirement..."
                     ></textarea>
@@ -331,13 +439,17 @@ const ContactFormSection = () => {
                   <div className="flex items-start gap-3 mt-4">
                     <div className="flex items-center h-5 mt-0.5">
                       <input 
-                        id="privacy" 
-                        type="checkbox" 
+                        id="privacy"
+                        name="privacy"
+                        type="checkbox"
+                        required
+                        checked={form.privacy}
+                        onChange={(e) => updateField('privacy', e.target.checked)}
                         className="w-4 h-4 border-gray-300 rounded bg-[#F7FAFC] text-[#00B4D8] focus:ring-[#00B4D8]"
                       />
                     </div>
                     <label htmlFor="privacy" className="text-sm text-gray-500 leading-tight">
-                      I agree to the privacy policy and consent to RAM SERVICES ENTERPRISES storing and processing my personal data to handle my enquiry.
+                      I agree to the privacy policy and consent to RAM SERVICES ENTERPRISES storing and processing my personal data to handle my enquiry. *
                     </label>
                   </div>
 
@@ -353,7 +465,7 @@ const ContactFormSection = () => {
                     {formState === 'submitting' ? (
                       <>
                         <div className="w-5 h-5 border-2 border-gray-400 border-t-gray-600 rounded-full animate-spin"></div>
-                        Processing...
+                        Sending...
                       </>
                     ) : (
                       <>
