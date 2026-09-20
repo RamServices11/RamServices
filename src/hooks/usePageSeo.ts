@@ -28,15 +28,15 @@ export const usePageSeo = ({ title, description, canonicalPath }: PageSeoProps) 
     if (canonicalPath) {
       const canonical = document.querySelector('link[rel="canonical"]');
       if (canonical) {
-        canonical.setAttribute('href', `https://ramservices.in${canonicalPath === '/' ? '/' : canonicalPath}`);
+        canonical.setAttribute('href', `https://www.ramservices.in${canonicalPath === '/' ? '/' : canonicalPath}`);
       }
       const ogUrl = document.querySelector('meta[property="og:url"]');
       if (ogUrl) {
-        ogUrl.setAttribute('content', `https://ramservices.in${canonicalPath === '/' ? '/' : canonicalPath}`);
+        ogUrl.setAttribute('content', `https://www.ramservices.in${canonicalPath === '/' ? '/' : canonicalPath}`);
       }
       const twUrl = document.querySelector('meta[name="twitter:url"]');
       if (twUrl) {
-        twUrl.setAttribute('content', `https://ramservices.in${canonicalPath === '/' ? '/' : canonicalPath}`);
+        twUrl.setAttribute('content', `https://www.ramservices.in${canonicalPath === '/' ? '/' : canonicalPath}`);
       }
     }
   }, [title, description, canonicalPath]);
