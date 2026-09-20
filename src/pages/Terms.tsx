@@ -1,7 +1,14 @@
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, ArrowLeft, FileText } from 'lucide-react';
+import usePageSeo from '../hooks/usePageSeo';
 
 const Terms = () => {
+  usePageSeo({
+    title: 'Terms of Service | RAM Services Enterprises',
+    description: 'Terms of service and commercial guidelines for RAM Services Enterprises engineering and turnkey solutions.',
+    canonicalPath: '/terms'
+  });
+
   return (
     <div className="pt-24 pb-20 bg-[#F7FAFC] min-h-screen">
       <div className="bg-[#0B192C] text-white py-12 mb-12">

@@ -4,8 +4,15 @@ import ContactCredibility from '../components/sections/contact/ContactCredibilit
 import ContactLocation from '../components/sections/contact/ContactLocation';
 import ContactVendorTrust from '../components/sections/contact/ContactVendorTrust';
 import ContactCTA from '../components/sections/contact/ContactCTA';
+import usePageSeo from '../hooks/usePageSeo';
 
 const Contact = () => {
+  usePageSeo({
+    title: 'Contact RAM Services Enterprises | Water Treatment & Engineering',
+    description: 'Get in touch with RAM Services Enterprises for plant inquiries, engineering consultations, and turnkey project quotes across Prayagraj, Hyderabad, and Bangalore.',
+    canonicalPath: '/contact'
+  });
+
   return (
     <>
       <ContactHero />

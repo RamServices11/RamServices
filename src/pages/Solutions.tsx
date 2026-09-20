@@ -8,8 +8,15 @@ import TurnkeyExecution from '../components/sections/solutions/TurnkeyExecution'
 import OperationsAMC from '../components/sections/solutions/OperationsAMC';
 import Industries from '../components/sections/solutions/Industries';
 import SolutionsCTA from '../components/sections/solutions/SolutionsCTA';
+import usePageSeo from '../hooks/usePageSeo';
 
 const Solutions = () => {
+  usePageSeo({
+    title: 'Water & Wastewater Treatment Solutions | RAM Services Enterprises',
+    description: 'Comprehensive industrial solutions including Sewage Treatment Plants (STP), Effluent Treatment Plants (ETP), WTP, Zero Liquid Discharge (ZLD), and RO systems.',
+    canonicalPath: '/solutions'
+  });
+
   return (
     <>
       <SolutionsHero />

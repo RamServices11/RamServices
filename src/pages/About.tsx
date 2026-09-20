@@ -10,8 +10,15 @@ import Locations from '../components/sections/about/Locations';
 import VendorExperience from '../components/sections/about/VendorExperience';
 import StrategicRoadmap from '../components/sections/about/StrategicRoadmap';
 import AboutCTA from '../components/sections/about/AboutCTA';
+import usePageSeo from '../hooks/usePageSeo';
 
 const About = () => {
+  usePageSeo({
+    title: 'About RAM Services Enterprises | Water & Wastewater Engineering',
+    description: 'Learn about RAM Services Enterprises, our engineering leadership, technical team, and proven experience in industrial water and wastewater management across India.',
+    canonicalPath: '/about'
+  });
+
   return (
     <>
       <AboutHero />

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const SESSION_KEY = 'ram-intro-shown';
-const DURATION_MS = 1500;
+const DURATION_MS = 750;
 
 /**
  * Plays once per browser session (sessionStorage-gated) before the site is
@@ -34,7 +34,7 @@ const Preloader = () => {
         window.setTimeout(() => {
           sessionStorage.setItem(SESSION_KEY, 'true');
           setShow(false);
-        }, 250);
+        }, 100);
       }
     };
 
@@ -52,7 +52,7 @@ const Preloader = () => {
         <motion.div
           className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0B192C]"
           exit={{ clipPath: 'inset(0 0 100% 0)' }}
-          transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
+          transition={{ duration: 0.45, ease: [0.76, 0, 0.24, 1] }}
           style={{ clipPath: 'inset(0 0 0% 0)' }}
         >
           {/* Ambient ripple behind the mark */}

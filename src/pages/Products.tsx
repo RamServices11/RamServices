@@ -8,8 +8,15 @@ import ProductSelection from '../components/sections/products/ProductSelection';
 import ProductsCTA from '../components/sections/products/ProductsCTA';
 import ProductMediaModal from '../components/sections/products/ProductMediaModal';
 import type { ProductItem } from '../data/products';
+import usePageSeo from '../hooks/usePageSeo';
 
 const Products = () => {
+  usePageSeo({
+    title: 'Water & Wastewater Treatment Equipment | RAM Services Enterprises',
+    description: 'Explore verified water and wastewater treatment machinery, filtration systems, packaged plants, dosing systems, and industrial water engineering equipment.',
+    canonicalPath: '/products'
+  });
+
   const [selectedProductForMedia, setSelectedProductForMedia] = useState<ProductItem | null>(null);
 
   return (

@@ -8,8 +8,15 @@ import ProjectsTurnkey from '../components/sections/projects/ProjectsTurnkey';
 import EngineeringCapabilities from '../components/sections/projects/EngineeringCapabilities';
 import IndustryContext from '../components/sections/projects/IndustryContext';
 import ProjectsCTA from '../components/sections/projects/ProjectsCTA';
+import usePageSeo from '../hooks/usePageSeo';
 
 const Projects = () => {
+  usePageSeo({
+    title: 'Water & Wastewater Treatment Projects | RAM Services Enterprises',
+    description: 'Review representative engineering project executions and operations across textile, chemical, manufacturing, commercial, and healthcare sectors.',
+    canonicalPath: '/projects'
+  });
+
   return (
     <>
       <ProjectsHero />

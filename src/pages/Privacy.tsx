@@ -1,7 +1,14 @@
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, ArrowLeft, Shield } from 'lucide-react';
+import usePageSeo from '../hooks/usePageSeo';
 
 const Privacy = () => {
+  usePageSeo({
+    title: 'Privacy Policy | RAM Services Enterprises',
+    description: 'Privacy policy for RAM Services Enterprises detailing how we handle client inquiries and business communications.',
+    canonicalPath: '/privacy'
+  });
+
   return (
     <div className="pt-24 pb-20 bg-[#F7FAFC] min-h-screen">
       <div className="bg-[#0B192C] text-white py-12 mb-12">
