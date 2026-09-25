@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Clock, AlertCircle, CheckCircle2, Info, ArrowRight, MessageCircle } from 'lucide-react';
+import SocialLinks from '../../ui/SocialLinks';
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error' | 'integration_pending';
 
@@ -214,6 +215,12 @@ const ContactFormSection = () => {
                       Monday - Saturday: 9:00 AM - 6:00 PM
                     </span>
                   </div>
+                </div>
+
+                {/* Follow Us */}
+                <div className="pt-4 border-t border-gray-100">
+                  <span className="block text-xs font-semibold tracking-widest text-gray-400 uppercase mb-3">Follow Us</span>
+                  <SocialLinks variant="light" />
                 </div>
 
               </div>

@@ -35,7 +35,7 @@ const WhoWeAre = () => {
               We would like to introduce ourselves as a professionally managed organization specializing in Water & Wastewater Treatment Solutions and allied industrial services.
             </p>
             <p className="text-gray-600 mb-8 leading-relaxed">
-              With in-house design and execution capabilities, state-of-the-art fabrication facilities in Prayagraj, Bangalore and Hyderabad, and a dedicated team of scientists and engineers, we deliver end-to-end engineering support and services.
+              With in-house design and execution capabilities, state-of-the-art fabrication facilities in Prayagraj, Bangalore and Hyderabad, and a dedicated team of 50+ professionals, we deliver end-to-end engineering support and services.
             </p>
 
             <div className="flex items-center gap-4">

@@ -40,8 +40,8 @@ const CompanyOverview = () => {
               <div className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Year Established</div>
             </div>
             <div className="bg-[#F7FAFC] p-8 rounded-xl border border-gray-100 shadow-sm">
-              <div className="text-4xl font-bold text-[#1A365D] mb-2">5</div>
-              <div className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Core Team Members</div>
+              <div className="text-4xl font-bold text-[#1A365D] mb-2">50+</div>
+              <div className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Employees</div>
               <p className="text-xs text-gray-400 mt-2">Competent & experienced engineers, environmental scientists, and support staff.</p>
             </div>
             <div className="bg-[#F7FAFC] p-8 rounded-xl border border-gray-100 shadow-sm sm:col-span-2">

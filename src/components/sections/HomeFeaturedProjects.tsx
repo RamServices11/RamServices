@@ -3,6 +3,9 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, MapPin } from 'lucide-react';
 import Reveal from '../motion/Reveal';
+import globalGreenImg from '../../assets/products/globalGreen.jpg';
+import liciousImg from '../../assets/products/licious.jpg';
+import koelemanImg from '../../assets/products/koeleman.jpg';
 
 interface Project {
   client: string;
@@ -10,6 +13,7 @@ interface Project {
   type: string;
   location: string;
   image: string;
+  alt: string;
 }
 
 const FEATURED: Project[] = [
@@ -18,7 +22,8 @@ const FEATURED: Project[] = [
     capacity: '300 KLD ETP with RO, UF & 20KLD ZLD',
     type: 'ETP & ZLD',
     location: 'Bangalore, Karnataka',
-    image: '/assets/equipment/packaged-treatment-plant.jpeg',
+    image: globalGreenImg,
+    alt: '300 KLD ETP with RO, UF & 20KLD ZLD Plant execution at The Global Green Company',
   },
   {
     client: 'Vintage Coffee',
@@ -26,13 +31,23 @@ const FEATURED: Project[] = [
     type: 'ETP & STP',
     location: 'Hyderabad, Telangana',
     image: '/assets/equipment/aeration-system.jpeg',
+    alt: '200 KLD ETP & 30 KLD STP wastewater treatment plant at Vintage Coffee',
   },
   {
     client: 'Delightful Gourmet (Licious)',
     capacity: '40 KLD',
     type: 'ETP',
     location: 'Hyderabad, Telangana',
-    image: '/assets/equipment/filtration-skid.jpeg',
+    image: liciousImg,
+    alt: '40 KLD Effluent Treatment Plant (ETP) system at Delightful Gourmet (Licious)',
+  },
+  {
+    client: 'Koeleman India Pvt. Ltd.',
+    capacity: '450 KLD ETP & 30 KLD ZLD',
+    type: 'ETP & ZLD',
+    location: 'Bangalore, Karnataka',
+    image: koelemanImg,
+    alt: '450 KLD ETP and 30 KLD ZLD industrial treatment plant at Koeleman India',
   },
 ];
 
@@ -59,7 +74,7 @@ const ProjectRow = ({ project, isEven }: { project: Project; isEven: boolean }) 
         </span>
         <motion.img
           src={project.image}
-          alt={project.client}
+          alt={project.alt}
           style={{ y: imageY }}
           className="w-full h-[112%] -top-[6%] relative object-cover object-center scale-100 group-hover:scale-105 transition-transform duration-1000 ease-out"
           loading="lazy"

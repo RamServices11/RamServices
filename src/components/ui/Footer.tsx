@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, ChevronRight } from 'lucide-react';
+import SocialLinks from './SocialLinks';
 
 // Explicit route map: the previous label.toLowerCase().replace(' ', '')
 // approach silently produced /aboutus and /contactus, which don't match
@@ -35,6 +36,12 @@ const Footer = () => {
             <p className="text-sm leading-relaxed mb-6 text-gray-400">
               We would like to introduce ourselves as a professionally managed organization specializing in Water & Wastewater Treatment Solutions and allied industrial services.
             </p>
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-wider text-gray-400 block mb-3">
+                Follow Us
+              </span>
+              <SocialLinks variant="dark" />
+            </div>
           </div>
 
           {/* Quick Links */}
